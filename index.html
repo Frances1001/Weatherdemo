@@ -110,7 +110,7 @@ li:first-letter {
             <div class="col-6">
               <div class="d-flex weather-temperature">
                 <img
-                  src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
+                  src=""
                   alt="Clear"
                   id="icon" />
                 <div>
@@ -161,6 +161,7 @@ let descriptionElement = document.querySelector("#description");
 let humidityElement = document.querySelector("#humidity");
 let windElement = document.querySelector("#wind");
 let dateElement = document.querySelector("#date");
+let iconElement = document.querySelector("#icon");
 
   temperatureElement.innerHTML = Math.round(response.data);
   cityElement.innerHTML = response.data.name;
@@ -168,10 +169,12 @@ let dateElement = document.querySelector("#date");
   humidityElement.innerHTML = response.data;
   windElement.innerHTML = Math.round(response.data);
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  iconElement.setAttribute("src",`http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data}.png`);
 }
 
       let apiKey = "e9f6tbod07ffa680aaf7a4f73543aabb";
-      let apiUrl =`https://api.shecodes.io/weather/v1/current?query=New York&key=${apiKey}&units=metric `;
+      let city = "paris";
+      let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric `;
       
       axios.get(apiUrl).then(displayTemperature);
 
