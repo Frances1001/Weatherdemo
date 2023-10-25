@@ -32,7 +32,6 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      text-transform: capitalize;
 
       color: rgb(3, 3, 2);
       font-size: 16px;
@@ -40,6 +39,9 @@
       line-height: 19px;
     }
 
+li:first-letter {
+ text-transform: capitalize;
+}
 
     .wrap {
       max-width: 600px;
@@ -100,7 +102,7 @@
           <div class="over">
             <h1 id="city"></h1>
             <ul>
-              <li>Friday 05:00</li>
+              <li>Last updated:<span id="date"></span></li>
               <li id="description"></li>
             </ul>
           </div>
@@ -137,18 +139,35 @@
     </div>
     <script>
 
+function formatDate(timestamp) {
+let date = new Date(timestamp);
+let hours = date.getHours();
+if (hours < 10) {
+  hours = `0${hours}`;
+}
+let minutes = date.getMinutes();
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
+let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let day = days[date.getDay()];
+return `${day} ${hours}:${minutes}`;
+}
+
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
 let descriptionElement = document.querySelector("#description");
 let humidityElement = document.querySelector("#humidity");
 let windElement = document.querySelector("#wind");
+let dateElement = document.querySelector("#date");
 
   temperatureElement.innerHTML = Math.round(response.data);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHtml = response.data;
   humidityElement.innerHTML = response.data;
   windElement.innerHTML = Math.round(response.data);
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
 }
 
       let apiKey = "e9f6tbod07ffa680aaf7a4f73543aabb";
