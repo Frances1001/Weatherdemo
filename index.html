@@ -99,6 +99,17 @@ li:first-letter {
     <div class="container">
       <div class="wrap">
         <div class="weather">
+          <form id="search-form" class="mb-3">
+            <div class="row">
+              <div class="col-9">
+            <input type="search" placeholder="Type your city..." 
+            class="form-control" id="city-input"/>
+            </div>
+            <div class="col-3">
+            <input type="submit" value="Search" class="btn btn-primary w-100"/>
+            </div> 
+            </div>
+          </form>
           <div class="over">
             <h1 id="city"></h1>
             <ul>
@@ -172,11 +183,23 @@ let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src",`http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data}.png`);
 }
 
-      let apiKey = "e9f6tbod07ffa680aaf7a4f73543aabb";
-      let city = "paris";
+function search(city) {
+   let apiKey = "e9f6tbod07ffa680aaf7a4f73543aabb";
       let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric `;
-      
-      axios.get(apiUrl).then(displayTemperature);
+     axios.get(apiUrl).then(displayTemperature); 
+}
+
+
+function handleSubmit(event) {
+event.preventDefault();
+let cityInputElement = document.querySelector("#city-input");
+search(cityInputElement.value);
+}
+
+search("New York");
+
+      let form = document.querySelector("#search-form");
+      form.addEventListener("submit", handleSubmit);
 
     </script>
     <script
